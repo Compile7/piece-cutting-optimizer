@@ -1,4 +1,4 @@
-// function to convert object to an array as we will get input in array of object[{size:20, qty:2}] => [20,20] converts to an array
+// function to convert object to an array as we will get input in {size:20, qty:2} => [20,20] converts to an array
 const converObjectIntoArray = ( objArr) => {
     let finalArr = [];
     let Arr = []
@@ -9,7 +9,7 @@ const converObjectIntoArray = ( objArr) => {
     return finalArr;
 }
 
-// function which returns the cuts(Output:- size of cut and the index of cut in array )
+// function which returns the cuts(size of cut and the index of cut in array )
 //  it gives the relevant cut so that we get minimum waste of pipe/rod 
 //  input we give is the array for cuts and the length of pipe/rod
 const cutsinSinglePipe = (arr, rodLength) => {
