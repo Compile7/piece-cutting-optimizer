@@ -1,41 +1,51 @@
-import React, { useEffect, useState } from "react";
+import { Button, Input } from "antd";
+import React from "react";
 import "./App.css";
-import socket from "./socket";
+import { drawRect, Fabric } from "./components/fabircCanvas";
 
 function App() {
-  const [val, setVal] = useState("");
-  const [messages, setMessages] = useState([]);
-  useEffect(() => {
-    socket.on("message", function (msg) {
-      const newMesgs = [...messages];
-      newMesgs.push(msg);
-      setMessages(newMesgs);
-    });
-  });
+  const [stocks, setStocks] = React.useState([{ size: "", qty: "" }]);
   return (
     <div className="App">
-      <ul id="messages">
-        {messages.map((msg, i) => (
-          <li key={`msg_${i}`}>{msg}</li>
-        ))}
-      </ul>
-      <div className="form">
-        <input
-          id="input"
-          autoComplete="off"
-          value={val}
-          onChange={(e) => {
-            setVal(e.target.val);
-          }}
-        />
-        <button
-          id={"event_btn"}
-          onClick={() => {
-            socket.emit("message", val);
-          }}
-        >
-          Send
-        </button>
+      <div id="header">
+        <Button onClick={() => drawRect()}> Calculate </Button>
+      </div>
+      <div className="container">
+        <div id="sidebar">
+          <h3>Stock: </h3>
+          <div className="stock-div">
+            {stocks.map((val, i) => (
+              <div className="inputs">
+                <Input
+                  placeholder="Size"
+                  value={val["size"]}
+                  onChange={(e) => {
+                    stocks[i]["size"] = e.target.value;
+                    setStocks(stocks);
+                  }}
+                />
+                <Input
+                  placeholder="Qauntity"
+                  value={val["qty"]}
+                  onChange={(e) => {
+                    stocks[i]["qty"] = e.target.value;
+                    setStocks(stocks);
+                  }}
+                />
+              </div>
+            ))}
+            <Button
+              onClick={() => {
+                setStocks([...stocks, { size: "", qty: "" }]);
+              }}
+            >
+              Add
+            </Button>
+          </div>
+        </div>
+        <div className="canvas-div">
+          <Fabric />
+        </div>
       </div>
     </div>
   );
