@@ -1,4 +1,4 @@
-// function to convert object to an array as we will get input in {size:20, qty:2} => [20,20]
+// function to convert object to an array as we will get input in {size:20, qty:2} => [20,20] converts to an array
 const converObjectIntoArray = ( objArr) => {
     let finalArr = [];
     let Arr = []
@@ -10,7 +10,7 @@ const converObjectIntoArray = ( objArr) => {
 }
 
 // function which returns the cuts(size of cut and the index of cut in array )
-//  info so that we get minimum waste 
+//  it gives the relevant cut so that we get minimum waste of pipe/rod 
 //  input we give is the array for cuts and the length of pipe/rod
 const cutsinSinglePipe = (arr, rodLength) => {
     let min = rodLength; 
@@ -29,14 +29,25 @@ const cutsinSinglePipe = (arr, rodLength) => {
 
 
 
-//  Main function for cut piece Algo
+//  Main function for cut piece Algo(1D)
 // Inputs 
 // 1. Array of cuts [{size: 10, qty:1}]
 // 2. Array of Stocks [{size: 10, qty:1}]
 // Output will get of one object which contain 2 Array 
 // 1. Contains subArrays for each stock 
 // 2. Contains Arrays of cuts which does not fit if stock is not enough otherwise null
-const pieceCutting1DAlgo = (cuts, stocks) => {
+
+// Example 
+// pieceCutting1DAlgo(
+//     [ {size: 45, qty:1}, {size: 25, qty:1}, {size: 20, qty:3}, {size: 15, qty:2}, {size: 35, qty:1} ],
+//      [{size: 89, qty:2}]
+// );
+// Output:-
+// {
+//     finalCuts: [ [ 0, 45, 80 ], [ 0, 25, 45, 65, 85 ] ],
+//     unabletofit: [ 15, 15 ]
+//   }
+export const pieceCutting1DAlgo = (cuts, stocks) => {
     let finalCuts =[];
     let totalSize = 0;
     let cutsInEachPipe = [0]; 
@@ -84,22 +95,3 @@ const pieceCutting1DAlgo = (cuts, stocks) => {
     return finalObject;
 
 }
-
-
-
-// Example 
-// pieceCutting1DAlgo(
-//     [
-//         {size: 45, qty:1},
-//         {size: 25, qty:1},
-//         {size: 20, qty:3},
-//         {size: 15, qty:2},
-//         {size: 35, qty:1}
-// ],
-//      [{size: 89, qty:2}]
-// );
-// Output:-
-// {
-//     finalCuts: [ [ 0, 45, 80 ], [ 0, 25, 45, 65, 85 ] ],
-//     unabletofit: [ 15, 15 ]
-//   }
