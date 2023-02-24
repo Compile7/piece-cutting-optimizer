@@ -47,7 +47,7 @@ const cutsinSinglePipe = (arr, rodLength) => {
 //     finalCuts: [ [ 0, 45, 80 ], [ 0, 25, 45, 65, 85 ] ],
 //     unabletofit: [ 15, 15 ]
 //   }
-export const pieceCutting1DAlgo = (cuts, stocks) => {
+const pieceCutting1DAlgo = (cuts, stocks) => {
     let finalCuts =[];
     let totalSize = 0;
     let cutsInEachPipe = [0]; 
@@ -95,3 +95,4 @@ export const pieceCutting1DAlgo = (cuts, stocks) => {
     return finalObject;
 
 }
+module.exports = pieceCutting1DAlgo;
