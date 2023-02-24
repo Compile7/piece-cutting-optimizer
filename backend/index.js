@@ -1,4 +1,7 @@
 const httpServer = require("http").createServer();
+
+const port = process.env.PORT || 3002
+const oneDAlgo = require('../algorithm/1Dalgorithm');
 const io = require("socket.io")(httpServer, {
   cors: {
     origin: "http://localhost:3000",
@@ -6,12 +9,14 @@ const io = require("socket.io")(httpServer, {
 });
 
 io.on("connection", (socket) => {
-  socket.on("message", (msg) => {
-    console.log(msg)
-    io.emit("message", msg);
-  });
+  socket.on("message", oneDAlgoResult);
 });
 
-httpServer.listen(3001, () => {
-  console.log(`Socket.IO server running at http://localhost:3001/`);
+const oneDAlgoResult = (inputs) => {
+  const result = oneDAlgo(inputs.cuts, inputs.stocks)
+  io.emit("message", result);
+}
+
+httpServer.listen(port, () => {
+  console.log(`Socket.IO server running at ${port}`);
 });
