@@ -1,10 +1,16 @@
 import { Button, Input } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { drawRect, Fabric } from "./components/fabircCanvas";
+// import socket from "./socket";
 
 function App() {
   const [stocks, setStocks] = React.useState([{ size: "", qty: "" }]);
+  // Please uncomment for socket testing
+  // useEffect(() => {
+  //   socket.emit("message", {cuts: [ {size: 45, qty:1}, {size: 25, qty:1}, {size: 20, qty:3}, {size: 15, qty:2}, {size: 35, qty:1} ],
+  //   stocks: [{size: 89, qty:2}]});
+  // });
   return (
     <div className="App">
       <div id="header">
