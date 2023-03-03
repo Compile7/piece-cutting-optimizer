@@ -1,6 +1,6 @@
 const httpServer = require("http").createServer();
 
-const port = process.env.PORT || 3002
+const PORT = process.env.PORT || 3002
 const oneDAlgo = require('../algorithm/1Dalgorithm');
 const io = require("socket.io")(httpServer
   // , {
@@ -18,6 +18,6 @@ const oneDAlgoResult = (inputs) => {
   io.emit("message", result);
 }
 
-httpServer.listen(port, () => {
+httpServer.listen(PORT, () => {
   console.log(`Socket.IO server running at ${port}`);
 });
