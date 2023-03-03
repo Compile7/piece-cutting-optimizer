@@ -19,5 +19,5 @@ const oneDAlgoResult = (inputs) => {
 }
 
 httpServer.listen(PORT, () => {
-  console.log(`Socket.IO server running at ${port}`);
+  console.log(`Socket.IO server running at ${PORT}`);
 });
