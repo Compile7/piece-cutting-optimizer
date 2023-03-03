@@ -3,10 +3,10 @@ const httpServer = require("http").createServer();
 const PORT = process.env.PORT || 3002
 const oneDAlgo = require('../algorithm/1Dalgorithm');
 const io = require("socket.io")(httpServer
-  // , {
-  // cors: {
-  //   origin: "http://localhost:3000",
-  // },}
+  , {
+  cors: {
+    origin: '*',
+  },}
 );
 
 io.on("connection", (socket) => {
