@@ -1,40 +1,106 @@
 import { Button, Input } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import { drawRect, Fabric } from "./components/fabircCanvas";
-// import socket from "./socket";
+import { drawPipe, Fabric } from "./components/fabircCanvas";
+import socket from "./socket";
 
 function App() {
-  const [stocks, setStocks] = React.useState([{ size: "", qty: "" }]);
-  // Please uncomment for socket testing
-  // useEffect(() => {
-  //   socket.emit("message", {cuts: [ {size: 45, qty:1}, {size: 25, qty:1}, {size: 20, qty:3}, {size: 15, qty:2}, {size: 35, qty:1} ],
-  //   stocks: [{size: 89, qty:2}]});
-  // });
+  const [stocks, setStocks] = useState([{ size: 0, qty: 0}]);
+  const [cuts, setCuts] = useState([{ size: 0, qty: 0 }]);
+  const [result, setResult] = useState({})
+
+
+const converObjectIntoArray = ( objArr) => {
+  let finalArr = [];
+  let Arr = []
+  objArr.map((obj) => {
+      Arr = Array(obj.qty).fill(obj.size)
+      finalArr = [...finalArr, ...Arr]
+  });
+  return finalArr;
+}
+  
+const handleCalculate = () => {
+  socket.emit("message", {cuts:cuts,stocks:stocks});
+  socket.on('message', (socket) => {
+    setResult(socket)
+  });
+
+  if(result?.finalCuts?.length > 0)
+  {const stockArray = converObjectIntoArray(stocks) 
+    result.finalCuts.map((val, i) => {
+      const lastIndex = result.finalCuts[i].length - 1;
+      const lastCutInArray = result.finalCuts[i][lastIndex];
+      if(stockArray[i] !== lastCutInArray){
+        val.push(stockArray[i])
+      };
+      drawPipe(val, i)
+    })
+  }
+}
   return (
     <div className="App">
       <div id="header">
-        <Button onClick={() => drawRect()}> Calculate </Button>
+        <Button onClick={() => handleCalculate()}> Calculate </Button>
       </div>
       <div className="container">
         <div id="sidebar">
-          <h3>Stock: </h3>
+          <h3>Cuts: </h3>
           <div className="stock-div">
-            {stocks.map((val, i) => (
+            {cuts.map((val, i) => (
               <div className="inputs">
                 <Input
+                id="cuts-size"
                   placeholder="Size"
-                  value={val["size"]}
+                  type="number"
+                  required
+                  // value={val.size}
                   onChange={(e) => {
-                    stocks[i]["size"] = e.target.value;
-                    setStocks(stocks);
+                    cuts[i]["size"] = Number(e.target.value);
+                    setCuts(cuts);
                   }}
                 />
                 <Input
                   placeholder="Qauntity"
-                  value={val["qty"]}
+                  type="number"
+                  required
+                  // value={val["qty"]}
                   onChange={(e) => {
-                    stocks[i]["qty"] = e.target.value;
+                    cuts[i]["qty"] = Number(e.target.value);
+                    setCuts(cuts);
+                  }}
+                />
+              </div>
+            ))}
+            <Button
+              onClick={() => {
+                setCuts([...cuts, { size: 0, qty: 0 }]);
+              }}
+            >
+              Add
+            </Button>
+          </div>
+        <h3>Stock: </h3>
+          <div className="stock-div">
+            {stocks.map((val, i) => (
+              <div className="inputs">
+                <Input
+                type="number"
+                required
+                  placeholder="Size"
+                  // value={val["size"]}
+                  onChange={(e) => {
+                    stocks[i]["size"] = Number(e.target.value);
+                    setStocks(stocks);
+                  }}
+                />
+                <Input
+                type="number"
+                required
+                  placeholder="Qauntity"
+                  // value={val["qty"]}
+                  onChange={(e) => {
+                    stocks[i]["qty"] = Number(e.target.value);
                     setStocks(stocks);
                   }}
                 />
@@ -42,13 +108,14 @@ function App() {
             ))}
             <Button
               onClick={() => {
-                setStocks([...stocks, { size: "", qty: "" }]);
+                setStocks([...stocks, { size: 0, qty: 0 }]);
               }}
             >
               Add
             </Button>
           </div>
         </div>
+        
         <div className="canvas-div">
           <Fabric />
         </div>
