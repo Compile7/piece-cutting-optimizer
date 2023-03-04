@@ -17,31 +17,45 @@ function Fabric() {
   return <canvas id="canvas"></canvas>;
 }
 const drawRect = (i,j,width, top ) => {
+  var topLine = new fabric.Line(
+    [i+20, top===0 ? top: top+(top/20), j+20, top===0 ? top: top+(top/20)],
+  { fill: '', stroke: 'black', objectCaching: false,selectable: false, });
+  
+  var line = new fabric.Path(
+    `M ${i+20} ${top===0 ? top: top+(top/20)} Q ${i}, ${top+50}, ${i+20}, ${top===0 ? 100: 100+(top/20)+top}`, 
+  { fill: '#c6daeb', stroke: 'black', objectCaching: false,selectable: false, });
 
+  var bottomLine = new fabric.Line(
+    [i+20, top===0 ? top+100: top+(top/20)+100, j+20, top===0 ? top+100: top+(top/20)+100],
+  { fill: '', stroke: 'black', objectCaching: false,selectable: false, });
+  
   var rect =  new fabric.Rect({
       top: top===0 ? top: top+(top/20),
-      left: i,
-      right: j,
+      left: i+20,
+      right: j+20,
       width: width,
       height: 100,
       fill: "#c6daeb",
-      strokeWidth: 1,
-	    stroke: "#000",
+      // strokeWidth: 1,
+	    // stroke: "#000",
       hasControls:false,
       selectable: false,
     })
     
     var text = new fabric.Text(width.toString(), {
-      left: (j+i)/2-7,
-      top: top===0 ? 40: top+(top/2),
+      left: (j+i+20)/2-7,
+      top: top===0 ? 40: top+(top/20)+45,
       fontSize: 15,
       fill: "black",
       hasControls:false,
       selectable: false,
     })
-
+    fabricCanvas.add(topLine)
     fabricCanvas.add(rect)
+    fabricCanvas.add(line)
     fabricCanvas.add(text)
+    fabricCanvas.add(bottomLine)
+
 }
 
 
