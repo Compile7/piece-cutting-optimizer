@@ -8,14 +8,6 @@
   display: flex;
 }
 
-#sidebar {
-  height: 95vh;
-  width: 300px;
-  border-right: 1px solid #ccc;
-  padding: 1em;
-  padding-top: 1em !important;
-}
-
 #header {
   height: 5vh;
   width: 100vw;
@@ -26,5 +18,63 @@
 
 .container {
   display: flex;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+.inputs {
+  display: flex;
+}
+
+#addbutton {
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.app {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Header Style */
+.header {
+  background-color: #efefef; /* Light Green */
+  padding: 1px;
+  text-align: center;
+}
+
+/* Sidebar Style */
+.sidebar {
+  background-color: #ccc; /* Darker Green */
+  width: 25%;
+  top: 0;
+  left: 0;
+  padding: 10px;
+}
+
+.sidebar h3 {
+  margin: 15px 0px 5px 0px;
+}
+
+.main {
+  width: 75%;
   height: 100%;
 }
+
+/* Main Content Style */
+.content {
+  background-color: #ecf0f1; /* Light Gray */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.btn-cal {
+  margin-top: 10px;
+} 
