@@ -38,7 +38,7 @@ const App = () => {
   return (
     <div className="app">
       <div className="header">
-        <h3>Piece Cutting Optimizer</h3>
+        <img alt="logo" src={"/assets/logo.jpg"} />
       </div>
       <div className="container">
         <div class="sidebar">
@@ -110,6 +110,7 @@ const App = () => {
                 />
                 <Button
                   id="deletebtn"
+                  disabled={i === 0}
                   onClick={() => {
                     stocks.splice(i, 1);
                     setStocks([...stocks]);

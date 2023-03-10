@@ -27,7 +27,6 @@
 }
 
 #addbutton {
-  border: none;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -45,14 +44,22 @@
 
 /* Header Style */
 .header {
-  background-color: #efefef; /* Light Green */
+  background-color: #000; /* Light Green */
   padding: 1px;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.header img {
+  padding: 5px;
+  width: 3em;
+  height: 3em;
 }
 
 /* Sidebar Style */
 .sidebar {
-  background-color: #ccc; /* Darker Green */
+  background-color: #fff; /* Darker Green */
   width: 25%;
   top: 0;
   left: 0;
