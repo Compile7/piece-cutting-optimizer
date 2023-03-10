@@ -39,6 +39,7 @@ const App = () => {
     <div className="app">
       <div className="header">
         <img alt="logo" src={"/assets/logo.jpg"} />
+        <h3> Piece Cutting Optimizer </h3>
       </div>
       <div className="container">
         <div class="sidebar">
