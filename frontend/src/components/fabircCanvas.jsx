@@ -3,17 +3,19 @@ import React, { useEffect } from "react";
 import "../App.css";
 const fabricCanvas = new fabric.Canvas();
 
-function Fabric() {
+function Fabric(props) {
+  const {loading} = props;
   useEffect(() => {
+    loading && fabricCanvas.clear();
     var el = document.getElementById("canvas");
   
     // Here we have the canvas so we can initialize fabric
-    fabricCanvas.initialize(el, {
+    loading && fabricCanvas.initialize(el, {
       height: document.body.clientHeight - 60,
       width: document.body.clientWidth,
       backgroundColor: "#aaaaaa",
     });
-  }, []);
+  }, [loading]);
   return <canvas id="canvas"></canvas>;
 }
 const drawRect = (i, j, width, top) => {
@@ -56,8 +58,6 @@ const drawRect = (i, j, width, top) => {
     width: width,
     height: 100,
     fill: "#c6daeb",
-    // strokeWidth: 1,
-    // stroke: "#000",
     hasControls: false,
     selectable: false,
   });
