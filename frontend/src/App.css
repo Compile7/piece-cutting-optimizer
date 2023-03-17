@@ -85,7 +85,27 @@
 
 .btn-cal {
   margin-top: 10px;
-} 
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ant-btn {
+  background-color: #9dcfcf;
+  margin: 10px;
+}
+
+.ant-input{
+  margin: 10px;
+  border-radius: 30px;
+}
+
+.left-sidebar>div {
+  border-color: #d9d9d9;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 0 20px 20px 20px;
+}
 
 .canvas-div
 {background-color: #aaaaaa;

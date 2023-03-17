@@ -88,7 +88,7 @@ const App = () => {
                 />
                 <Input
                 id={i}
-                  placeholder="Qauntity"
+                  placeholder="Quantity"
                   type="number"
                   required
                   defaultValue={val?.qty}
@@ -137,7 +137,7 @@ const App = () => {
                 <Input
                   type="number"
                   required
-                  placeholder="Qauntity"
+                  placeholder="Quantity"
                   defaultValue={val?.qty}
                   onChange={(e) => {
                     stocks[i]["qty"] = Number(e.target.value);
@@ -176,6 +176,13 @@ const App = () => {
           <div className="canvas-div">
             <Fabric loading={loading}/>
           </div>
+        </div>
+
+        <div class="sidebar left-sidebar" style={{zIndex: 1}}>
+            <div>
+              <h3>Unable to fit pieces:</h3>
+              <div>{result?.unabletofit?.toString() || "N/A"}</div>
+            </div>
         </div>
       </div>
         </Spin>
