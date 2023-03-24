@@ -61,7 +61,8 @@ const App = () => {
     <div className="app">
       <div className="header">
         <img alt="logo" src={"/assets/logo.jpg"} />
-        <h3> Piece Cutting Optimizer </h3>
+        <h3 className="appname"> Cut Genius </h3>
+        <div className="dropdown-placeholder" ></div>
       </div>
       <Spin  spinning={loading}> 
       <div className="container">
@@ -104,7 +105,7 @@ const App = () => {
                     handleDelete(cuts,i, {cuts: true, stocks: false});
                   }}
                 >
-                  <i class="far fa-trash-alt"></i>
+                  <i class="fa fa-minus"></i>
                 </Button>
               </div>
             ))}</div>
@@ -151,7 +152,7 @@ const App = () => {
                     handleDelete(stocks,i,{stocks:true, cuts: false})
                   }}
                 >
-                  <i class="far fa-trash-alt"></i>
+                  <i class="fa fa-minus"></i>
                 </Button>
               </div>
             ))}
@@ -167,7 +168,7 @@ const App = () => {
             </Button>}
           </div>
           <div className="btn-cal">
-            <Button onClick={() => handleCalculate()}> Calculate </Button>
+            <Button onClick={() => handleCalculate()}> Calculate <i class="fas fa-play"></i></Button>
           </div>
           </Form>
         </div>

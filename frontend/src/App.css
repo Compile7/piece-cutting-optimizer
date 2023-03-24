@@ -52,6 +52,11 @@
 
 }
 
+.appname {
+  padding: 0 10px 0 10px;
+  color: white;
+}
+
 .header img {
   padding: 5px;
   width: 3em;
@@ -92,6 +97,7 @@
 .ant-btn {
   background-color: #9dcfcf;
   margin: 10px;
+  font-weight: bold;
 }
 
 .ant-input{
@@ -105,6 +111,15 @@
   border-style: solid;
   border-radius: 10px;
   padding: 0 20px 20px 20px;
+}
+
+.fa-plus, .fa-minus {
+  color: white;
+}
+
+.fas.fa-play {
+  padding-left: 10px;
+  color: white;
 }
 
 .canvas-div
