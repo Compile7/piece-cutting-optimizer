@@ -46,15 +46,17 @@
 /* Header Style */
 .header {
   background-color: #000; /* Light Green */
-  padding: 1px;
+  padding: 6px;
   display: flex;
-  justify-content: space-between;
-
 }
 
 .appname {
   padding: 0 10px 0 10px;
   color: white;
+  font-size: 28px;
+  font-family: Kalam !important;
+  letter-spacing: 2px;
+  margin: 12px 0px !important;
 }
 
 .header img {
@@ -66,10 +68,10 @@
 /* Sidebar Style */
 .sidebar {
   background-color: #fff; /* Darker Green */
-  width: 25%;
+  width: 25% !important;
   top: 0;
   left: 0;
-  padding: 10px;
+  padding: 0px 10px 10px 10px;
 }
 
 .sidebar h3 {
@@ -95,9 +97,18 @@
 }
 
 .ant-btn {
-  background-color: #9dcfcf;
+  color: #fff;
+  background-color: #00ADB4;
   margin: 10px;
-  font-weight: bold;
+  font-family: Kalam !important;
+  box-shadow: 0px 6px 5px 0px #c7c7c7c4;
+}
+
+.ant-btn:hover {
+  color: #000 !important;
+  border-color: #000 !important;
+  font-weight: 100;
+  
 }
 
 .ant-input{
@@ -105,12 +116,35 @@
   border-radius: 30px;
 }
 
+.heading {
+  font-family: Kalam !important;
+}
+
+.field-label-div {
+  margin-left: 10px;
+  margin-right: 40px;
+  display: flex;
+}
+
+.field-label {
+  font-family: Kalam !important;
+}
+
+.label-div {
+  width: 50%;
+
+}
+
+.input-field {
+  box-shadow: 0px 4px 5px 0px #c7c7c7c4 inset;
+}
+
 .left-sidebar>div {
-  border-color: #d9d9d9;
+  border-color: #d9d9d9;  
   border-width: 1px;
   border-style: solid;
   border-radius: 10px;
-  padding: 0 20px 20px 20px;
+  padding: 10px 20px 20px 20px;
 }
 
 .fa-plus, .fa-minus {
@@ -122,6 +156,21 @@
   color: white;
 }
 
-.canvas-div
-{background-color: #aaaaaa;
-  height: 100%}
+.fa-plus:hover, .fa-minus:hover, .fas.fa-play:hover {
+  color: #000 !important;
+}
+
+.canvas-div {
+
+  background-color: #d9d9d987;
+  width: 1000px;
+  margin: 10px;
+  border-radius: 5px;
+  box-shadow: 1px 7px 8px 5px #c7c7c7c4;
+  height: 720px;
+  overflow-y: scroll;
+}
+
+.table-container{
+  margin-top: 10px;
+}

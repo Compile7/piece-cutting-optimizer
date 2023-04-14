@@ -1,0 +1,25 @@
+.canvas-header {
+    background-color: #00ADB4;
+    height: 30px;
+    border-radius: 7px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+
+}
+
+.heading {
+    font-size: 20px;
+    font-weight: 500;
+    font-family: cursive;
+}
+
+.end-icon {
+    font-size: 20px;
+    padding: 5px 6px;
+}
+
+.end-icon:hover {
+    color: #fff !important;
+}
