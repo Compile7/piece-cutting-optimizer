@@ -1,9 +1,14 @@
 import { Button, Input, Form } from "antd";
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { drawPipe, Fabric } from "./components/fabircCanvas";
+import { drawPipe, Fabric } from "./components/Canvas/fabircCanvas";
 import socket from "./socket";
 import { Spin} from 'antd';
+import ComponentHeader from "./components/ComponentHeader/componentHeader";
+import { SettingsItems, ShowDeleteConfirm } from './components/constants';
+import Table from "./components/Table";
+
+
 const App = () => {
   const [stocks, setStocks] = useState([{ size: 0, qty: 0 }]);
   const [cuts, setCuts] = useState([{ size: 0, qty: 0 }]);
@@ -45,6 +50,20 @@ const App = () => {
     cuts.length > 0 && stocks.length > 0 && socket.emit("message", { cuts: cuts, stocks: stocks });
     
   };
+  const handleCancel = () => {
+    setLoading(false);
+  }
+  const handleOnClick = () => {
+    let stocksLength = 0;
+    let cutsLength = 0;
+    stocks.map((s) => stocksLength = stocksLength + s.size*s.qty ) 
+    cuts.map((s) => cutsLength = cutsLength + s.size*s.qty ) 
+    if (cutsLength > stocksLength){
+      ShowDeleteConfirm(handleCalculate, handleCancel)
+    }
+  }
+
+
   
   const handleDelete = (objArr , i, loadingObject) => {
     setCutsStocksLoading(loadingObject);
@@ -57,6 +76,27 @@ const App = () => {
   }, 1000)
     
   }
+
+  const calculateCanvasWidth = (stocks) => {
+    let maxLength = 0;
+    stocks.map((stk) => {
+      if (stk.size > maxLength) {
+        maxLength = stk.size
+      }
+    })
+    return maxLength;
+  }
+
+  const calculateCanvasHeight = (stocks) => {
+    let maxLength = 0;
+    stocks.map((stk) => {
+      if ( stk.qty > maxLength) {
+        maxLength =  stk.qty
+      }
+    })
+    return maxLength;
+  }
+
   return (
     <div className="app">
       <div className="header">
@@ -68,64 +108,24 @@ const App = () => {
       <div className="container">
        
         <div class="sidebar">
+        <ComponentHeader heading="Dimensions" endIcon="downArrow"/>
           <Form>
-          <h3>Cuts: </h3>
-          <div className="stock-div">
-            <Spin spinning={cutsstocksloading.cuts} size="large" className="cuts-stock-spin">
-            <div>
-            {cuts.map((val, i) => (
-              <div className="inputs" key={`cuts_${i}`}>
-
-                <Input
-                  id={i}
-                  name={i}
-                  placeholder="Size"
-                  type="number"
-                  defaultValue={val?.size}                 
-                  onChange={(e) => {
-                    cuts[i]["size"] = Number(e.target.value);
-                    setCuts(cuts);
-                  }}
-                />
-                <Input
-                id={i}
-                  placeholder="Quantity"
-                  type="number"
-                  required
-                  defaultValue={val?.qty}
-                  onChange={(e) => {
-                    cuts[i]["qty"] = Number(e.target.value);
-                    setCuts(cuts);
-                  }}
-                />
-                <Button
-                  id="deletebtn"
-                  disabled={cuts.length === 1}
-                  onClick={() => {
-                    handleDelete(cuts,i, {cuts: true, stocks: false});
-                  }}
-                >
-                  <i class="fa fa-minus"></i>
-                </Button>
-              </div>
-            ))}</div>
-            </Spin>
-            { !cutsstocksloading.cuts && <Button
-              id="addbutton"
-              onClick={() => {
-                setCuts([...cuts, { size: 0, qty: 0 }]);
-              }}
-            >
-              <i class="fas fa-plus"></i>
-            </Button>}
-          </div>
-          <h3>Stock: </h3>
+          <h3 className="heading">Stock: </h3>
           <div className="stock-div">
           <Spin spinning={cutsstocksloading.stocks} size="large" className="cuts-stock-spin">
-            <div>
+            <div >
+            {!cutsstocksloading.stocks && <div className="field-label-div">
+                <div className="label-div">
+              <label className="field-label">Length</label>
+              </div>
+              <div className="label-div">
+              <label className="field-label">Quantity</label>
+              </div>
+              </div>}
             {stocks.map((val, i) => (
               <div className="inputs" key={`stock_${i}`}>
                 <Input
+                  className="input-field"
                   type="number"
                   required
                   placeholder="Size"
@@ -136,6 +136,8 @@ const App = () => {
                   }}
                 />
                 <Input
+                className="input-field"
+                label="Length"
                   type="number"
                   required
                   placeholder="Quantity"
@@ -167,22 +169,89 @@ const App = () => {
               <i class="fas fa-plus"></i>
             </Button>}
           </div>
+          <h3 className="heading">Cuts: </h3>
+          <div className="stock-div">
+            <Spin spinning={cutsstocksloading.cuts} size="large" className="cuts-stock-spin">
+            <div>
+            {!cutsstocksloading.cuts && <div className="field-label-div">
+                <div className="label-div">
+              <label className="field-label">Length</label>
+              </div>
+              <div className="label-div">
+              <label className="field-label">Quantity</label>
+              </div>
+              </div>}
+            {cuts.map((val, i) => (
+              <div className="inputs" key={`cuts_${i}`}>
+
+                <Input
+                className="input-field"
+                  id={i}
+                  name={i}
+                  placeholder="Size"
+                  type="number"
+                  defaultValue={val?.size}                 
+                  onChange={(e) => {
+                    cuts[i]["size"] = Number(e.target.value);
+                    setCuts(cuts);
+                  }}
+                />
+                <Input
+                id={i}
+                className="input-field"
+                  placeholder="Quantity"
+                  type="number"
+                  required
+                  defaultValue={val?.qty}
+                  onChange={(e) => {
+                    cuts[i]["qty"] = Number(e.target.value);
+                    setCuts(cuts);
+                  }}
+                />
+                <Button
+                  id="deletebtn"
+                  disabled={cuts.length === 1}
+                  onClick={() => {
+                    handleDelete(cuts,i, {cuts: true, stocks: false});
+                  }}
+                >
+                  <i class="fa fa-minus"></i>
+                </Button>
+              </div>
+            ))}</div>
+            </Spin>
+            { !cutsstocksloading.cuts && <Button
+              id="addbutton"
+              onClick={() => {
+                setCuts([...cuts, { size: 0, qty: 0 }]);
+              }}
+            >
+              <i class="fas fa-plus"></i>
+            </Button>}
+          </div>
+         
           <div className="btn-cal">
-            <Button onClick={() => handleCalculate()}> Calculate <i class="fas fa-play"></i></Button>
+            <Button
+            onClick={() => handleOnClick()} >Calculate  <i class="fas fa-play"></i></Button>
           </div>
           </Form>
         </div>
 
         <div class="main">
+            <ComponentHeader  endIcon="setting" menuItems={SettingsItems}/>
           <div className="canvas-div">
-            <Fabric loading={loading}/>
+            <Fabric loading={loading} 
+            canvasWidth={calculateCanvasWidth(stocks)} 
+            canvasHeight={calculateCanvasHeight(stocks)} />
           </div>
         </div>
 
         <div class="sidebar left-sidebar" style={{zIndex: 1}}>
-            <div>
+            <div className="table-container">
               <h3>Unable to fit pieces:</h3>
-              <div>{result?.unabletofit?.toString() || "N/A"}</div>
+              <Table list = {result?.unabletofit} />
+              {/* <h3>Fit Pieces:</h3>
+              <Table list = {result?.finalCuts} /> */}
             </div>
         </div>
       </div>
