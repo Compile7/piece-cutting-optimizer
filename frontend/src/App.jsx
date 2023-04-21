@@ -60,6 +60,8 @@ const App = () => {
     cuts.map((s) => cutsLength = cutsLength + s.size*s.qty ) 
     if (cutsLength > stocksLength){
       ShowDeleteConfirm(handleCalculate, handleCancel)
+    } else {
+      handleCalculate()
     }
   }
 
