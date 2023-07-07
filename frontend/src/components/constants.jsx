@@ -6,11 +6,11 @@ import { Button, Modal, Space } from 'antd';
 const { confirm } = Modal;
 
 export const SettingsItems = [
-    {
-      label: 'Download(pdf)',
-      key: '1',
-      icon: <DownloadOutlined />,
-    },
+    // {
+    //   label: 'Download(pdf)',
+    //   key: '1',
+    //   icon: <DownloadOutlined />,
+    // },
     {
       label: 'Clear Canvas',
       key: "2",
