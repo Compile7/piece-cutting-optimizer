@@ -2,6 +2,7 @@ const httpServer = require("http").createServer();
 
 const PORT = process.env.PORT || 3002
 const oneDAlgo = require('../algorithm/1Dalgorithm');
+const twoDAlgo = require('../algorithm/2Dalgorithm');
 const io = require("socket.io")(httpServer
   , {
   cors: {
@@ -14,7 +15,13 @@ io.on("connection", (socket) => {
 });
 
 const oneDAlgoResult = (inputs) => {
-  const result = oneDAlgo(inputs.cuts, inputs.stocks)
+  let result;
+  if(inputs?.cuts) {
+    result = oneDAlgo(inputs.cuts, inputs.stocks)
+  } else {
+    console.log("sheets");
+    result = twoDAlgo(inputs.sheets , inputs.stocks)
+  }
   io.emit("message", result);
 }
 

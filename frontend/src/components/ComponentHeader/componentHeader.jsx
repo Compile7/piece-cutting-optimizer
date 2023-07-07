@@ -44,7 +44,13 @@ const ComponentHeader = (props) => {
         </Space>
         </Dropdown>
         }
-      {endIcon === "downArrow" && <CaretDownFilled className="end-icon" />}
+        {endIcon === "downArrow" && menuItems.length > 0 && 
+       <Dropdown menu={menuProps} placement="bottomRight">
+        <Space>
+        <CaretDownFilled className="end-icon" />
+        </Space>
+        </Dropdown>
+        }
     </div>
   );
 };
